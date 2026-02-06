@@ -98,6 +98,7 @@
 
 !local variables:
  logical,parameter:: fndsnowh = .true.
+ logical:: soil_moisture_adjustment = .false.
 
  integer:: iCell
  integer:: errflag,ns
@@ -151,6 +152,16 @@
 
 !initializes soil liquid water content SH2O:
     do iCell = 1, nCells
+
+      !---srf 
+      !do ns = 1, nSoilLevels
+      !   if (smois(ns,iCell) < 0.99) then 
+      !      smois(ns,iCell) = 0.7* smois(ns,iCell)
+      !      soil_moisture_adjustment = .true.
+      !   endif
+      !enddo
+      !---srf
+
        bx = bb(isltyp(iCell))
        smcmax = maxsmc(isltyp(iCell))
        psisat = satpsi(isltyp(iCell))
@@ -191,6 +202,9 @@
           enddo
        endif ! of if ((bx > 0.0)
     enddo    ! do iCell
+    if (soil_moisture_adjustment) then
+       call physics_message( 'srf: initial soil moisture reduced by 30%' )
+    endif
 
 !initialize physical snow height SNOWH:
     if(.not.fndsnowh)then
