@@ -114,7 +114,7 @@
 !   Laura D. Fowler (laura@ucar.edu) / 2016-10-18.
 ! * since we removed the local variable convection_scheme from mpas_atmphys_vars.F, now defines convection_scheme
 !   as a pointer to config_convection_scheme.
-!   Laura D. Fowler (laura@ucar.edu) / 2917-02-16.
+!   Laura D. Fowler (laura@ucar.edu) / 2017-02-16.
 ! * removed f_qv,f_qr,and f_qs in the calls to cu_tiedtke and cu_ntiedtke. removed f_qv and f_qc in the call to
 !   kf_eta_cps.
 !   Laura D. Fowler (laura@ucar.edu) / 2024-02-13.
@@ -198,6 +198,12 @@
        if(.not.allocated(rtopshcu_p)     ) allocate(rtopshcu_p(ims:ime,jms:jme)         )
        if(.not.allocated(rbotdpcu_p)     ) allocate(rbotdpcu_p(ims:ime,jms:jme)         )
        if(.not.allocated(v2d1_p)         ) allocate(v2d1_p(ims:ime,jms:jme)             )
+
+!conflito
+!       if(.not.allocated(v2d2_p)         ) allocate(v2d2_p(ims:ime,jms:jme)             )    
+!       if(.not.allocated(lightn_dens_p)  ) allocate(lightn_dens_p(ims:ime,jms:jme)      )    
+!       if(.not.allocated(sigma_deep_p)   ) allocate(sigma_deep_p(ims:ime,jms:jme)       )    
+
        if(.not.allocated(v2d2_p)         ) allocate(v2d2_p(ims:ime,jms:jme)             )
        if(.not.allocated(lightn_dens_p)  ) allocate(lightn_dens_p(ims:ime,jms:jme)      )
        if(.not.allocated(dp_dens_p)      ) allocate(dp_dens_p(ims:ime,jms:jme)          )
@@ -209,6 +215,7 @@
 
        if(.not.allocated(sigma_deep_p)   ) allocate(sigma_deep_p(ims:ime,jms:jme)       )
 
+
        if(.not.allocated(rthblten_p)     ) allocate(rthblten_p(ims:ime,kms:kme,jms:jme) )
        if(.not.allocated(rthdynten_p)    ) allocate(rthdynten_p(ims:ime,kms:kme,jms:jme))
        if(.not.allocated(rthratensw_p)   ) allocate(rthratensw_p(ims:ime,kms:kme,jms:jme))
@@ -219,8 +226,8 @@
        if(.not.allocated(rucuten_p)      ) allocate(rucuten_p(ims:ime,kms:kme,jms:jme)  )
        if(.not.allocated(rvcuten_p)      ) allocate(rvcuten_p(ims:ime,kms:kme,jms:jme)  )
        if(.not.allocated(rcnvcfcuten_p)  ) allocate(rcnvcfcuten_p(ims:ime,kms:kme,jms:jme))
-       if(.not.allocated(rbuoyxcuten_p)  ) allocate(rbuoyxcuten_p(ims:ime,kms:kme,jms:jme))
-
+       if(.not.allocated(rbuoyxcuten_p)  ) allocate(rbuoyxcuten_p(ims:ime,kms:kme,jms:jme)) 
+       
        if(.not.allocated(tkepbl_p)       ) allocate(tkepbl_p  (ims:ime,kms:kme,jms:jme) )
        if(.not.allocated(elpbl_p)        ) allocate(elpbl_p   (ims:ime,kms:kme,jms:jme) )
        if(.not.allocated(rupmfxcu_p)     ) allocate(rupmfxcu_p(ims:ime,kms:kme,jms:jme) )
@@ -336,7 +343,7 @@
        if(.not.allocated(area_p)     ) allocate(area_p(ims:ime,jms:jme)            )
        if(.not.allocated(nca_p)      ) allocate(nca_p(ims:ime,jms:jme)             )
        if(.not.allocated(cubot_p)    ) allocate(cubot_p(ims:ime,jms:jme)           )
-       if(.not.allocated(cutop_p)    ) allocate(cutop_p(ims:ime,jms:jme)           )
+       if(.not.allocated(cutop_p)    ) allocate(cutop_p(ims:ime,jms:jme)           ) 
        if(.not.allocated(w0avg_p)    ) allocate(w0avg_p(ims:ime,kms:kme,jms:jme)   )
        if(.not.allocated(rqrcuten_p) ) allocate(rqrcuten_p(ims:ime,kms:kme,jms:jme))
        if(.not.allocated(rqscuten_p) ) allocate(rqscuten_p(ims:ime,kms:kme,jms:jme))
@@ -497,6 +504,11 @@
        if(allocated(rtopshcu_p)     ) deallocate(rtopshcu_p     )
        if(allocated(rbotdpcu_p)     ) deallocate(rbotdpcu_p     )
        if(allocated(v2d1_p)         ) deallocate(v2d1_p         )
+!conflito
+!       if(allocated(v2d2_p)         ) deallocate(v2d2_p         )    
+!       if(allocated(lightn_dens_p)  ) deallocate(lightn_dens_p  )    
+!       if(allocated(sigma_deep_p)   ) deallocate(sigma_deep_p   )    
+
        if(allocated(v2d2_p)         ) deallocate(v2d2_p         )
        if(allocated(lightn_dens_p)  ) deallocate(lightn_dens_p  )
        if(allocated(dp_dens_p)      ) deallocate(dp_dens_p      )
@@ -534,7 +546,7 @@
        if(allocated(area_p)       ) deallocate(area_p       )
        if(allocated(nca_p)        ) deallocate(nca_p        )
        if(allocated(cubot_p)      ) deallocate(cubot_p      )
-       if(allocated(cutop_p)      ) deallocate(cutop_p      )
+       if(allocated(cutop_p)      ) deallocate(cutop_p      ) 
        if(allocated(w0avg_p)      ) deallocate(w0avg_p      )
        if(allocated(rqrcuten_p)   ) deallocate(rqrcuten_p   )
        if(allocated(rqscuten_p)   ) deallocate(rqscuten_p   )
@@ -727,28 +739,28 @@
              kpbl            = kpbl_p                 , tke_pbl       = tkepbl_p        , &
              turb_len_scale  = elpbl_p                ,                                   &
              buoyx           = buoyx_p                , cnvcf         = cnvcf_p         , &
-             rthblten        = rthblten_p             , rqvblten      = rqvblten_p      , &
+             rthblten        = rthblten_p             , rqvblten      = rqvblten_p      , &       
              rthratenlw      = rthratenlw_p           , rthratensw    = rthratensw_p    , &
-             rthdyten        = rthdynten_p            , rqvdyten      = rqvdynten_p     , &
+             rthdyten        = rthdynten_p            , rqvdyten      = rqvdynten_p     , &    
              
              raincv          = raincv_p               , conprr        = pratec_p        , &
              lightn_dens     = lightn_dens_p          , sigma_deep    = sigma_deep_p    , &
-             rthcuten        = rthcuten_p             , rqvcuten      = rqvcuten_p      , &
+             rthcuten        = rthcuten_p             , rqvcuten      = rqvcuten_p      , & 
              rqccuten        = rqccuten_p             , rqicuten      = rqicuten_p      , &
              rucuten         = rucuten_p              , rvcuten       = rvcuten_p       , &
              rbuoyxcuten     = rbuoyxcuten_p          , rcnvcfcuten   = rcnvcfcuten_p   , &
 
-             sub3d_rthcuten  = sub3d_rthcuten_p       , sub3d_rqvcuten= sub3d_rqvcuten_p, &
+             sub3d_rthcuten  = sub3d_rthcuten_p       , sub3d_rqvcuten= sub3d_rqvcuten_p, & 
              sub3d_rucuten   = sub3d_rucuten_p        , sub3d_rvcuten = sub3d_rvcuten_p , &
 
              rupmfxcu        = rupmfxcu_p             , rdnmfxcu      = rdnmfxcu_p      , &
              
-             rmfxdpcu        = rmfxdpcu_p             , rmfxdncu      = rmfxdncu_p      , &
+             rmfxdpcu        = rmfxdpcu_p             , rmfxdncu      = rmfxdncu_p      , &        
              rmfxmdcu        = rmfxmdcu_p                                               , &
              rmfxshcu        = rmfxshcu_p             , rtopdpcu      = rtopdpcu_p      , &
              rtopmdcu        = rtopmdcu_p             , rtopshcu      = rtopshcu_p      , &
              rbotdpcu        = rbotdpcu_p                                               , &
-             var2d1          = v2d1_p                 , var2d2        = v2d2_p          , &
+             var2d1          = v2d1_p                 , var2d2        = v2d2_p          , &               
              var3d1          = v3d1_p                                                   , &
              ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde      , &
              ims = ims , ime = ime , jms = jms , jme = jme , kms = kds , kme = kme      , &
@@ -966,6 +978,7 @@
  enddo
  enddo
  end if
+
  convection_select: select case(convection_scheme)
 
      case ("cu_gf_monan")
@@ -1245,7 +1258,8 @@
  end subroutine convection_from_MPAS
 
 !=================================================================================================================
- subroutine convection_to_MPAS(configs,mesh,diag_physics,tend_physics,its,ite,exchange_halo_group,block)
+ subroutine convection_to_MPAS(configs,mesh,diag_physics,tend_physics,its,ite,&
+                               exchange_halo_group,block)
 !=================================================================================================================
 
 !input arguments:
@@ -1287,7 +1301,10 @@
  real(kind=RKIND),dimension(:,:),pointer:: rcnvcfcuten, rbuoyxcuten
  real(kind=RKIND),dimension(:,:),pointer:: rupmfxcu, rdnmfxcu
  real(kind=RKIND),dimension(:,:),pointer:: sub3d_rucuten,sub3d_rvcuten,sub3d_rthcuten,sub3d_rqvcuten
- real(kind=RKIND) :: factor_lbc
+
+ !conflito
+ !real(kind=RKIND) :: factor_lbc
+
 !-----------------------------------------------------------------------------------------------------------------
 
  call mpas_pool_get_config(configs,'config_convection_scheme',convection_scheme)
@@ -1314,6 +1331,7 @@
  enddo
 
  convection_select: select case(convection_scheme)
+
     case ("cu_gf_monan")
        call mpas_pool_get_array(diag_physics,'rmfxdpcu'    ,rmfxdpcu   )
        call mpas_pool_get_array(diag_physics,'rmfxdncu'    ,rmfxdncu   )
@@ -1425,6 +1443,7 @@
 
             !-- part 2: broadcast the subsidence tendencies
             call exchange_halo_group(block % domain, 'physics:sub3d_cuten')
+            call exchange_halo_group(block % domain, 'physics:sigdiagten')
 
             !-- part 3: spread the subsidence tendencies to the 1st neighboors
             call mpas_pool_get_array(mesh, 'cellsOnCell', cellsOnCell)
@@ -1680,6 +1699,7 @@
  real(kind=RKIND),dimension(:),pointer:: dp_dens,sh_dens,cg_dens
  real(kind=RKIND),dimension(:),pointer:: acc_dp_dens,acc_sh_dens,acc_cg_dens
 
+!local variables and arrays:
  real(kind=RKIND),dimension(:,:),pointer:: umcl,vmcl
  real(kind=RKIND),dimension(:,:),pointer:: rumcl
  real(kind=RKIND),dimension(:,:),pointer:: zgrid,rh
@@ -1704,6 +1724,7 @@
 
  real(kind=RKIND):: vert_scale_diss,tau_cloud_diss,htopx,snk,src,tau_cp,denom 
  real(kind=RKIND):: total_dz,H_env,gama,temp, rvap, press, qes, zlevel, dzrho, aux, MCL_speed
+
 !-----------------------------------------------------------------------------------------------------------------
 
  call mpas_pool_get_config(configs,'config_bucket_rainc',bucket_rainc)
@@ -1964,6 +1985,7 @@
     case default
 
  end select convection_select
+
  end subroutine update_convection_step2
 !=================================================================================================================
  !-- alternative routine for "tend_toEdges" --!
