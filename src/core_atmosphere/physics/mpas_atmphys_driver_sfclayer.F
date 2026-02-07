@@ -482,6 +482,10 @@
     th2m_p(i,j)   = 0._RKIND
     u10_p(i,j)    = 0._RKIND
     v10_p(i,j)    = 0._RKIND
+!conflito
+    hfx_spr_p(i,j)= 0._RKIND
+    lh_spr_p(i,j) = 0._RKIND
+    sgsgustcu_p(i,j) = 0.0_RKIND
 
     !output variables (optional):
     cd_p(i,j)     = 0._RKIND
@@ -650,7 +654,7 @@
              !--- where there is     cold pool, sgsgustcu_p -> gspd_local
              sgsgustcu_p(i,j) = (1.-factor2)*wspd_local + factor2*gspd_local
              !--- temporary for output only
-             v2d2(i) =  sgsgustcu_p(i,j)
+             !v2d2(i) =  sgsgustcu_p(i,j)
              
              !--- subtract from the env wind speed, as the sgsgustcu_p will later be 
              !--- summed with "wspd" in routine 'sf_mynn_run'. See in this routine the line
@@ -673,7 +677,7 @@
              sgsgustcu_p(i,j) = 0.0_RKIND
            endif 
             !--- temporary for output only
-            v2d2(i) =  sgsgustcu_p(i,j)
+            !v2d2(i) =  sgsgustcu_p(i,j)
          enddo
          enddo
 
@@ -753,6 +757,13 @@
  call mpas_pool_get_array(diag_physics,'znt'   ,znt   )
  call mpas_pool_get_array(diag_physics,'zol'   ,zol   )
 
+!conflito
+ !call mpas_pool_get_array(diag_physics,'lh_spr' ,lh_spr )
+ !call mpas_pool_get_array(diag_physics,'hfx_spr',hfx_spr)
+ 
+ call mpas_pool_get_array(diag_physics,'lh_spr' ,lh_spr )
+ call mpas_pool_get_array(diag_physics,'hfx_spr',hfx_spr)
+
 !output variables:
  call mpas_pool_get_array(diag_physics,'q2'    ,q2    )
  call mpas_pool_get_array(diag_physics,'t2m'   ,t2m   )
@@ -804,6 +815,12 @@
     th2m(i)   = th2m_p(i,j)
     u10(i)    = u10_p(i,j)
     v10(i)    = v10_p(i,j)
+
+!conflito
+    !- srf
+    hfx_spr(i)= hfx_spr_p(i,j)
+    lh_spr(i) = lh_spr_p(i,j)
+
     !output variables (optional):
     cd(i)     = cd_p(i,j)
     cda(i)    = cda_p(i,j)
