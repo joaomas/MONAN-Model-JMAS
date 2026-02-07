@@ -1303,7 +1303,7 @@
  real(kind=RKIND),dimension(:,:),pointer:: sub3d_rucuten,sub3d_rvcuten,sub3d_rthcuten,sub3d_rqvcuten
 
  !conflito
- !real(kind=RKIND) :: factor_lbc
+ real(kind=RKIND) :: factor_lbc
 
 !-----------------------------------------------------------------------------------------------------------------
 
