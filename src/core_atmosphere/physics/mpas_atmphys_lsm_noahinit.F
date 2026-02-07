@@ -152,6 +152,7 @@
 
 !initializes soil liquid water content SH2O:
     do iCell = 1, nCells
+!conflito
 
       !---srf 
       !do ns = 1, nSoilLevels
