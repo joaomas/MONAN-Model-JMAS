@@ -1061,6 +1061,7 @@
                         <var name="uzonal_15hPa"/>
                         <var name="uzonal_20hPa"/>
                         <var name="uzonal_30hPa"/>
+                        <var name="uzonal_50hPa"/>
                         <var name="uzonal_70hPa"/>
                         <var name="uzonal_100hPa"/>
                         <var name="uzonal_150hPa"/>
@@ -2743,6 +2744,13 @@
                         <var name="lbc_ni" name_in_code="ni" array_group="number" packages="bl_mynn_in;mp_thompson_in;mp_thompson_aers_in"
                              units="m^{-3} s^{-1}"
                              description="Lateral boundary tendency of ice number concentration"/>
+                        
+                        <var name="lbc_cnvcf" name_in_code="cnvcf" array_group="convection" packages="gf_monan_pcvol" units="s^{-1}"
+                             description="Lateral boundary tendency of Convective cloud fraction"/>
+                        
+                        <var name="lbc_buoyx" name_in_code="buoyx" array_group="convection" packages="gf_monan_cporg" units="J kg^{-1} s^{-1}"
+                             description="Lateral boundary tendency of Buoyancy excess from the cold pool scheme"/>
+
 
                         <var name="lbc_nc" name_in_code="nc" array_group="number" packages="mp_thompson_aers_in"
                              units="m^{-3} s^{-1}"
@@ -3671,6 +3679,14 @@
                      description="wind speed at lowest model level"
                      packages="bl_mynn_in;bl_ysu_in"/>
 
+                <var name="hfx_spr" type="real" dimensions="nCells Time" units="W m^{-2}"
+                     description="upward heat flux at the surface from ocean spray"
+                     packages="bl_mynn_in;bl_ysu_in"/>
+
+                <var name="lh_spr" type="real" dimensions="nCells Time" units="W m^{-2}"
+                     description="latent heat flux at the surface from ocean spray"
+                     packages="bl_mynn_in;bl_ysu_in"/>
+
 
                 <!-- ... MONIN-OBUKHOV (SFCLAY): -->
                 <var name="fh" type="real" dimensions="nCells Time" units="unitless"
@@ -3698,7 +3714,6 @@
                 <var name="sm3d" type="real" dimensions="nVertLevels nCells Time" units="unitless"
                      description="stability function for moisture"
                      packages="bl_mynn_in"/>
-
 
                 <!-- DIAGNOSTICS: -->
                 <var name="u10" type="real" dimensions="nCells Time" packages="bl_mynn_in;bl_ysu_in" units="m s^{-1}"
