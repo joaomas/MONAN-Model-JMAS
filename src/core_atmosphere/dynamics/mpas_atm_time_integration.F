@@ -853,6 +853,11 @@ module atm_time_integration
       character (len=StrKIND), pointer :: config_microp_scheme
       character (len=StrKIND), pointer :: config_convection_scheme
 
+      !integer, pointer :: num_scalars, index_qv, nCells, nCellsSolve, nEdges, nEdgesSolve, nVertices, nVerticesSolve, nVertLevels
+      !---rever pointer
+      integer, pointer :: index_qc, index_qr, index_qi, index_qs, index_qg, index_nr, index_ni
+      integer, pointer :: index_buoyx, index_cnvcf
+      !---
       integer, pointer :: index_qv, nCellsSolve, nVertices_ptr, nVerticesSolve
       integer, pointer :: nCells_ptr, nEdges_ptr, nEdgesSolve_ptr
       integer, pointer :: nVertLevels_ptr, num_scalars_ptr
