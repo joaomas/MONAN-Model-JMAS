@@ -31,8 +31,7 @@
                    sgsgustcu,hfx_spr,lh_spr,config_gf_gustf,     &
                    ids,ide,jds,jde,kds,kde,                      &
                    ims,ime,jms,jme,kms,kme,                      &
-                   its,ite,jts,jte,kts,kte,                      &
-                   errmsg,errflg                                 &
+                   its,ite,jts,jte,kts,kte                       &
                        )
 !-------------------------------------------------------------------
 !-- u3d         3d u-velocity interpolated to theta points (m/s)
